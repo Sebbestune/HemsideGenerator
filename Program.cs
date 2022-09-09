@@ -6,33 +6,36 @@
 string[] techniques = {"   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   "};
 
 /*
- * Statisk data
- */
-string start = "<!DOCTYPE html>\n<html>\n<body>\n<main>\n";
-string welcome = "<h1> Välkomna! </h1>\n";
-string kurser = courseGenerator(techniques);
-string end = "</main>\n</body>\n</html>";
-
-printPage();
-
-/*
  * Skriva ut data
  */
+printPage();
 
 void printStart()
 {
+    string start = "<!DOCTYPE html>\n<html>\n<body>\n<main>\n";
     Console.WriteLine(start);
 }
-void printWelcome()
+void printWelcome(string className, string[] message)
 {
-    Console.WriteLine(welcome);
+    string welcome = $"<h1> Välkomna {className}! </h1>";
+
+    string welcomeMessage = "";
+
+    foreach (string msg in message)
+    {
+        welcomeMessage += $"\n<p><b> Meddelande: </b> {msg} </p>";
+    }
+    
+    Console.WriteLine(welcome + welcomeMessage);
 }
 void printKurser()
 {
+    string kurser = courseGenerator(techniques);
     Console.WriteLine(kurser);
 }
 void printEnd()
 {
+    string end = "</main>\n</body>\n</html>";
     Console.WriteLine(end);
 }
 
@@ -40,7 +43,7 @@ void printEnd()
 void printPage()
 {
     printStart();
-    printWelcome();
+    printWelcome("Klass A", new string[] { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." });
     printKurser();
     printEnd(); 
 }
