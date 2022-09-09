@@ -3,7 +3,7 @@
 /*
  * Data ifrån API
  */
-string[] techniques = { "C#", "Databaser", "Webb", "Clean Code" };
+string[] techniques = {"   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   "};
 
 /*
  * Statisk data
@@ -14,7 +14,9 @@ string kurser = "";
 
 foreach (string technique in techniques)
 {
-    kurser += "<p>" + technique + "</p>\n";
+    string tmp = technique.Trim();
+
+    kurser += "<p>" + tmp[0].ToString().ToUpper() + tmp.Substring(1).ToLower() + "</p>\n";
 }
 
 string end = "</main>\n</body>\n</html>";
