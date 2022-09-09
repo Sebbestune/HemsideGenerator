@@ -4,6 +4,7 @@
  * Data ifrån API
  */
 string[] techniques = {"   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   "};
+string[] messagesToClass = { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." };
 
 /*
  * Skriva ut data
@@ -43,7 +44,7 @@ void printEnd()
 void printPage()
 {
     printStart();
-    printWelcome("Klass A", new string[] { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." });
+    printWelcome("Klass A", messagesToClass);
     printKurser();
     printEnd(); 
 }
