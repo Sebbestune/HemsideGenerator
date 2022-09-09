@@ -10,19 +10,51 @@ string[] techniques = {"   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   "}
  */
 string start = "<!DOCTYPE html>\n<html>\n<body>\n<main>\n";
 string welcome = "<h1> Välkomna! </h1>\n";
-string kurser = "";
-
-foreach (string technique in techniques)
-{
-    string tmp = technique.Trim();
-
-    kurser += "<p>" + tmp[0].ToString().ToUpper() + tmp.Substring(1).ToLower() + "</p>\n";
-}
-
+string kurser = courseGenerator(techniques);
 string end = "</main>\n</body>\n</html>";
+
+printPage();
 
 /*
  * Skriva ut data
  */
 
-Console.WriteLine($"{start}{welcome}{kurser}{end}");
+void printStart()
+{
+    Console.WriteLine(start);
+}
+void printWelcome()
+{
+    Console.WriteLine(welcome);
+}
+void printKurser()
+{
+    Console.WriteLine(kurser);
+}
+void printEnd()
+{
+    Console.WriteLine(end);
+}
+
+
+void printPage()
+{
+    printStart();
+    printWelcome();
+    printKurser();
+    printEnd(); 
+}
+
+
+string courseGenerator(string[] techniques)
+{
+    string kurser = "";
+
+    foreach (string technique in techniques)
+    {
+        string tmp = technique.Trim();
+        kurser += "<p>" + tmp[0].ToString().ToUpper() + tmp.Substring(1).ToLower() + "</p>\n";
+    }
+
+    return kurser;
+}
