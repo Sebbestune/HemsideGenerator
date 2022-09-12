@@ -13,18 +13,18 @@ class WebsiteGenerator
     /*
      * Data ifrån API
      */
-    public string[] techniques = { "   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   " };
-    public string[] messagesToClass = { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." };
+    string[] techniques = { "   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   " };
+    string[] messagesToClass = { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." };
 
     string className = "Klass A";
     string kurser = "";
 
-    public void printStart()
+    void printStart()
     {
         string start = "<!DOCTYPE html>\n<html>\n<body>\n<main>\n";
         Console.WriteLine(start);
     }
-    public void printWelcome(string className, string[] message)
+    void printWelcome(string className, string[] message)
     {
         string welcome = $"<h1> Välkomna {className}! </h1>";
 
@@ -37,12 +37,12 @@ class WebsiteGenerator
 
         Console.WriteLine(welcome + welcomeMessage);
     }
-    public void printKurser()
+    void printKurser()
     {
         string kurser = courseGenerator(this.techniques);
         Console.WriteLine(kurser);
     }
-    public void printEnd()
+    void printEnd()
     {
         string end = "</main>\n</body>\n</html>";
         Console.WriteLine(end);
@@ -55,7 +55,7 @@ class WebsiteGenerator
         printKurser();
         printEnd();
     }
-    public string courseGenerator(string[] techniques)
+    string courseGenerator(string[] techniques)
     {
 
         foreach (string technique in techniques)
