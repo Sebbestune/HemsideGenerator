@@ -16,7 +16,13 @@ Console.WriteLine("-----------------------");
 styledWebsite.printPage();
 
 
-class WebsiteGenerator
+interface Website
+{
+    void printPage();
+}
+
+
+class WebsiteGenerator : Website
 {
     /*
      * Data ifrån API
