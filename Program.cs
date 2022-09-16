@@ -3,7 +3,11 @@
 /*
  * Skriva ut data
  */
-WebsiteGenerator website = new WebsiteGenerator();
+
+string[] techniques = { "   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   " };
+string[] messagesToClass = { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." };
+
+WebsiteGenerator website = new WebsiteGenerator("Klass A", messagesToClass, techniques);
 
 website.printPage();
 
@@ -13,11 +17,17 @@ class WebsiteGenerator
     /*
      * Data ifrån API
      */
-    string[] techniques = { "   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   " };
-    string[] messagesToClass = { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." };
 
-    string className = "Klass A";
+    string[] messagesToClass, techniques;
+    string className;
     string kurser = "";
+
+    public WebsiteGenerator(string className, string[] messageToClass, string[] techniques)
+    {
+        this.className = className;
+        this.messagesToClass = messageToClass;
+        this.techniques = techniques;
+    }
 
     void printStart()
     {
