@@ -9,7 +9,11 @@ string[] messagesToClass = { "Glöm inte att övning ger färdighet!", "Öppna b
 
 WebsiteGenerator website = new WebsiteGenerator("Klass A", messagesToClass, techniques);
 
+StyledWebsiteGenerator styledWebsite = new StyledWebsiteGenerator("Klass A", "blue", messagesToClass, techniques);
+
 website.printPage();
+Console.WriteLine("-----------------------");
+styledWebsite.printPage();
 
 
 class WebsiteGenerator
@@ -18,8 +22,8 @@ class WebsiteGenerator
      * Data ifrån API
      */
 
-    string[] messagesToClass, techniques;
-    string className;
+    protected string[] messagesToClass, techniques;
+    protected string className;
     string kurser = "";
 
     public WebsiteGenerator(string className, string[] messageToClass, string[] techniques)
@@ -34,7 +38,7 @@ class WebsiteGenerator
         string start = "<!DOCTYPE html>\n<html>\n<body>\n<main>\n";
         Console.WriteLine(start);
     }
-    void printWelcome(string className, string[] message)
+    protected void printWelcome(string className, string[] message)
     {
         string welcome = $"<h1> Välkomna {className}! </h1>";
 
@@ -47,18 +51,18 @@ class WebsiteGenerator
 
         Console.WriteLine(welcome + welcomeMessage);
     }
-    void printKurser()
+    protected void printKurser()
     {
         string kurser = courseGenerator(this.techniques);
         Console.WriteLine(kurser);
     }
-    void printEnd()
+    protected void printEnd()
     {
         string end = "</main>\n</body>\n</html>";
         Console.WriteLine(end);
     }
 
-    public void printPage()
+    virtual public void printPage()
     {
         printStart();
         printWelcome(this.className, this.messagesToClass);
@@ -75,5 +79,30 @@ class WebsiteGenerator
         }
 
         return kurser;
+    }
+}
+
+class StyledWebsiteGenerator : WebsiteGenerator
+{
+
+    string color;
+
+    public StyledWebsiteGenerator(string className, string color, string[] messageToClass, string[] techniques) : base(className, messageToClass, techniques)
+    {
+        this.color = color;
+    }
+
+    public override void printPage()
+    {
+        printStyledStart();
+        printWelcome(this.className, this.messagesToClass);
+        printKurser();
+        printEnd();
+    }
+
+    private void printStyledStart()
+    {
+        Console.WriteLine($"<!DOCTYPE html>\n<html>\n<head>\n<styles>\np {{ color: {this.color}; }}\n"+
+                          "</styles>\n</head>\n<body>\n<main>\n");
     }
 }
