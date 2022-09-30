@@ -15,9 +15,11 @@ WebsiteGenerator website = new WebsiteGenerator("Klass A", messagesToClass, tech
 StyledWebsiteGenerator styledWebsite = new StyledWebsiteGenerator("Klass A", "blue", messagesToClass, techniques);
 
 // Vi skriver ut våra hemsidor först vanliga och sedan stylade
-website.printPage();
+website.PrintPage();
 Console.WriteLine("-----------------------");
-styledWebsite.printPage();
+styledWebsite.PrintPage();
+
+styledWebsite.PrintToFile();
 
 
 /*
@@ -25,7 +27,8 @@ styledWebsite.printPage();
  */
 interface Website
 {
-    void printPage();
+    void PrintPage();
+    void PrintToFile();
 }
 
 /*
@@ -82,12 +85,30 @@ class WebsiteGenerator : Website
         return "</main>\n</body>\n</html>";
     }
 
-    public void printPage()
+    public void PrintPage()
     {
         Console.WriteLine(printStart());
         Console.WriteLine(printWelcome(this.className, this.messagesToClass));
         Console.WriteLine(printKurser());
         Console.WriteLine(printEnd());
+    }
+
+    public void PrintToFile()
+    {
+        string websiteName;
+        Console.WriteLine("Enter filename for website: ");
+        websiteName = Console.ReadLine();
+        
+        FileInfo fi = new FileInfo(websiteName + ".html");
+        FileStream fs = fi.Open(FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+        StreamWriter sw = new StreamWriter(fs);
+
+        sw.WriteLine(printStart());
+        sw.WriteLine(printWelcome(this.className, this.messagesToClass));
+        sw.WriteLine(printKurser());
+        sw.WriteLine(printEnd());
+
+        sw.Close();
     }
 
     /*
@@ -129,7 +150,7 @@ class StyledWebsiteGenerator : WebsiteGenerator
      */
     override protected string printStart()
     {
-        return $"<!DOCTYPE html>\n<html>\n<head>\n<styles>\np {{ color: {this.color}; }}\n" +
-                          "</styles>\n</head>\n<body>\n<main>\n";
+        return $"<!DOCTYPE html>\n<html>\n<head>\n<style>\np {{ color: {this.color}; }}\n" +
+                          "</style>\n</head>\n<body>\n<main>\n";
     }
 }
