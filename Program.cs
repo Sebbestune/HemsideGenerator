@@ -56,12 +56,11 @@ class WebsiteGenerator : Website
      * Flera olika metoder för att utföra diverse funktionalitet
      * virtual = tillåter oss att override:a (göra egen version utav) metoden i ärvda klasser
      */
-    virtual protected void printStart()
+    virtual protected string printStart()
     {
-        string start = "<!DOCTYPE html>\n<html>\n<body>\n<main>\n";
-        Console.WriteLine(start);
+        return "<!DOCTYPE html>\n<html>\n<body>\n<main>\n";
     }
-    void printWelcome(string className, string[] message)
+    string printWelcome(string className, string[] message)
     {
         string welcome = $"<h1> Välkomna {className}! </h1>";
 
@@ -72,25 +71,23 @@ class WebsiteGenerator : Website
             welcomeMessage += $"\n<p><b> Meddelande: </b> {msg} </p>";
         }
 
-        Console.WriteLine(welcome + welcomeMessage);
+        return welcome + welcomeMessage;
     }
-    void printKurser()
+    string printKurser()
     {
-        string kurser = courseGenerator(this.techniques);
-        Console.WriteLine(kurser);
+        return courseGenerator(this.techniques);
     }
-    void printEnd()
+    string printEnd()
     {
-        string end = "</main>\n</body>\n</html>";
-        Console.WriteLine(end);
+        return "</main>\n</body>\n</html>";
     }
 
     public void printPage()
     {
-        printStart();
-        printWelcome(this.className, this.messagesToClass);
-        printKurser();
-        printEnd();
+        Console.WriteLine(printStart());
+        Console.WriteLine(printWelcome(this.className, this.messagesToClass));
+        Console.WriteLine(printKurser());
+        Console.WriteLine(printEnd());
     }
 
     /*
@@ -130,9 +127,9 @@ class StyledWebsiteGenerator : WebsiteGenerator
     /*
      * Vi skapar en egen version av printStart (override:ar den) för att kunna få resultatet vi önskar
      */
-    override protected void printStart()
+    override protected string printStart()
     {
-        Console.WriteLine($"<!DOCTYPE html>\n<html>\n<head>\n<styles>\np {{ color: {this.color}; }}\n" +
-                          "</styles>\n</head>\n<body>\n<main>\n");
+        return $"<!DOCTYPE html>\n<html>\n<head>\n<styles>\np {{ color: {this.color}; }}\n" +
+                          "</styles>\n</head>\n<body>\n<main>\n";
     }
 }
