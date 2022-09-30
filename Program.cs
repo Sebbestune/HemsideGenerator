@@ -1,18 +1,32 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-
-
 /*
  * De olika inputs som vi vill skicka in i objekten (hemsidorna)
  */
-string[] techniques = { "   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   " };
+//string[] techniques = { "   C#", "daTAbaser", "WebbuTVeCkling ", "clean Code   " };
 string[] messagesToClass = { "Glöm inte att övning ger färdighet!", "Öppna boken på sida 257." };
+
+string colorStyling;
+
+string[] techniques = File.ReadAllLines("techniques.txt");
+
+
+if (File.Exists("color-styling"))
+{
+    colorStyling = File.ReadAllText("color-styling");
+}
+else
+{
+    File.WriteAllText("color-styling", "blue");
+    colorStyling = "blue";
+}
+
 
 // Vi skapar ett objekt för att kunna hantera en hemsida
 WebsiteGenerator website = new WebsiteGenerator("Klass A", messagesToClass, techniques);
 
 // Vi skapar en hemsida som tillåter styling, vi skickar in en färg utöver andra delar
-StyledWebsiteGenerator styledWebsite = new StyledWebsiteGenerator("Klass A", "blue", messagesToClass, techniques);
+StyledWebsiteGenerator styledWebsite = new StyledWebsiteGenerator("Klass A", colorStyling, messagesToClass, techniques);
 
 // Vi skriver ut våra hemsidor först vanliga och sedan stylade
 website.PrintPage();
@@ -93,13 +107,37 @@ class WebsiteGenerator : Website
         Console.WriteLine(printEnd());
     }
 
+    public string getFileName()
+    {
+        string websiteName = "index";
+        Console.WriteLine("Enter filename for website: ");
+        try
+        {
+            websiteName = Console.ReadLine();
+        }
+        catch (IOException ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+        }
+        catch (OutOfMemoryException ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+        }
+        finally
+        {
+            Console.WriteLine("Saving file as: " + websiteName + ".html");
+        }
+
+        return websiteName;
+    }
+
     public void PrintToFile()
     {
-        string websiteName;
-        Console.WriteLine("Enter filename for website: ");
-        websiteName = Console.ReadLine();
-        
-        FileInfo fi = new FileInfo(websiteName + ".html");
+        FileInfo fi = new FileInfo(getFileName() + ".html");
         FileStream fs = fi.Open(FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
         StreamWriter sw = new StreamWriter(fs);
 
