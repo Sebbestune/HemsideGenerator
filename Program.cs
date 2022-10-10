@@ -137,16 +137,27 @@ class WebsiteGenerator : Website
 
     public void PrintToFile()
     {
-        FileInfo fi = new FileInfo(getFileName() + ".html");
-        FileStream fs = fi.Open(FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
-        StreamWriter sw = new StreamWriter(fs);
+        
+        try
+        {
+            FileInfo fi = new FileInfo(getFileName() + ".html");
+            FileStream fs = fi.Open(FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.WriteLine(printStart());
+                sw.WriteLine(printWelcome(this.className, this.messagesToClass));
+                sw.WriteLine(printKurser());
+                sw.WriteLine(printEnd());
 
-        sw.WriteLine(printStart());
-        sw.WriteLine(printWelcome(this.className, this.messagesToClass));
-        sw.WriteLine(printKurser());
-        sw.WriteLine(printEnd());
-
-        sw.Close();
+                sw.Close();
+            }
+                
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        
     }
 
     /*
